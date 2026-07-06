@@ -4,23 +4,23 @@
 
 **Product Name:** Hotel Finder
 
-**Description:** A web application that helps users find and compare hotels near their flight destinations. Users search by destination airport and receive a curated list of hotels with detailed information, which they can sort by price, ratings, surroundings, and features.
+**Description:** A web application that helps users find and compare hotels in a specified city. Users search by entering a city name and receive a curated list of hotels with detailed information, which they can sort by price, ratings, surroundings, and features.
 
-**Target Users:** Travelers planning trips who want an easy way to find hotels near their flight destinations.
+**Target Users:** Travelers planning trips who want an easy way to find hotels in their destination city.
 
 ## 2. Goals & Success Metrics
 
-- Provide users with quick access to hotel options near their destination airport
+- Provide users with quick access to hotel options in their destination city
 - Enable users to easily compare hotels based on their preferences (price, ratings, amenities, location)
 - Offer a mobile-friendly, intuitive interface
-- Successfully integrate Google Flights API and Booking Scraper API to retrieve real hotel data
+- Successfully integrate Booking Scraper API to retrieve real hotel data
 
 ## 3. User Stories
 
 ### Primary User Flow
 **As a** traveler planning a trip  
-**I want to** enter my destination airport and receive a list of nearby hotels  
-**So that** I can quickly compare options and book a hotel close to the airport
+**I want to** enter a city name and receive a list of hotels  
+**So that** I can quickly compare options and book a hotel in that city
 
 ### Sorting User Flow
 **As a** user viewing hotel results  
@@ -38,7 +38,7 @@
 **Description:** Users input search parameters to find hotels
 
 **Required Inputs:**
-- Destination airport (required)
+- Destination city (required)
 - Check-in date (required)
 - Check-out date (required)
 - Number of guests (required)
@@ -114,8 +114,7 @@
 ## 5. Technical Specifications
 
 ### 5.1 APIs Used
-- **Google Flights API** (via SerpAPI): Retrieve flight destination data
-- **Booking Scraper** (via Apify): Retrieve hotel information, pricing, ratings, and amenities
+- **Booking Scraper** (via Apify): Retrieve hotel information, pricing, ratings, and amenities based on city input
 
 ### 5.2 Technology Stack
 - **Frontend:** Vanilla HTML, CSS, JavaScript
@@ -130,7 +129,7 @@
 
 ### 6.1 Page Layout
 1. **Header** - App title and branding
-2. **Search Form** - Destination airport, check-in/out dates, guests, rooms
+2. **Search Form** - Destination city, check-in/out dates, guests, rooms
 3. **Sort Controls** - Buttons to sort by price, ratings, surroundings, features
 4. **Results Container** - Paginated hotel cards (10 per page)
 5. **Pagination Controls** - Previous/Next buttons and page indicator
@@ -146,7 +145,7 @@
 ## 7. MVP Scope
 
 ### In Scope (MVP)
-- Search form with destination airport, dates, guests, rooms
+- Search form with destination city, dates, guests, rooms
 - API integration for hotel data retrieval
 - Display 5 hotel data points: name, price, rating, address, room offerings
 - Sort by price and ratings
@@ -166,7 +165,7 @@
 
 ## 8. Success Criteria
 
-- [x] Users can search for hotels by entering a destination airport
+- [ ] Users can search for hotels by entering a destination city
 - [x] API calls complete within reasonable time (~5-10 seconds)
 - [x] Users can sort results by price and ratings
 - [x] Pagination works correctly across pages
@@ -180,8 +179,8 @@
 
 ### Assumptions
 - Users have internet access
-- Users have airport codes or can identify their destination airport
-- APIs (SerpAPI and Apify) remain available and responsive
+- Users know the name of the city they want to visit
+- APIs (Apify) remain available and responsive
 - Hotel pricing and availability data updates reasonably frequently
 
 ### Constraints
