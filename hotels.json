@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "name": "Harbor View Suites",
+    "pricePerNight": 189,
+    "rating": 4.7,
+    "address": "100 Bay Street, San Francisco, CA",
+    "roomOfferings": "King room, free breakfast, airport shuttle",
+    "airportCode": "SFO"
+  },
+  {
+    "id": 2,
+    "name": "Skyline Grand Hotel",
+    "pricePerNight": 214,
+    "rating": 4.5,
+    "address": "250 Mission Street, San Francisco, CA",
+    "roomOfferings": "Queen suite, late checkout, fitness center",
+    "airportCode": "SFO"
+  },
+  {
+    "id": 3,
+    "name": "Airport Comfort Inn",
+    "pricePerNight": 158,
+    "rating": 4.3,
+    "address": "700 Airport Boulevard, South San Francisco, CA",
+    "roomOfferings": "Double room, parking, free Wi-Fi",
+    "airportCode": "SFO"
+  },
+  {
+    "id": 4,
+    "name": "Marina Bay Retreat",
+    "pricePerNight": 232,
+    "rating": 4.8,
+    "address": "88 Marina Drive, San Francisco, CA",
+    "roomOfferings": "Deluxe suite, spa access, breakfast included",
+    "airportCode": "SFO"
+  },
+  {
+    "id": 5,
+    "name": "Oak Street Boutique Hotel",
+    "pricePerNight": 176,
+    "rating": 4.4,
+    "address": "420 Oak Street, San Francisco, CA",
+    "roomOfferings": "Studio room, lounge access, pet-friendly",
+    "airportCode": "SFO"
+  },
+  {
+    "id": 6,
+    "name": "LAX Sky Lounge Hotel",
+    "pricePerNight": 205,
+    "rating": 4.6,
+    "address": "9000 Airport Blvd, Los Angeles, CA",
+    "roomOfferings": "King suite, pool, free shuttle",
+    "airportCode": "LAX"
+  },
+  {
+    "id": 7,
+    "name": "Sunset Strip Inn",
+    "pricePerNight": 179,
+    "rating": 4.3,
+    "address": "8500 Sunset Blvd, Los Angeles, CA",
+    "roomOfferings": "Double room, rooftop bar, valet parking",
+    "airportCode": "LAX"
+  },
+  {
+    "id": 8,
+    "name": "Venice Beach Hotel",
+    "pricePerNight": 249,
+    "rating": 4.5,
+    "address": "100 Ocean Avenue, Venice, CA",
+    "roomOfferings": "Ocean-view room, bike rentals, breakfast",
+    "airportCode": "LAX"
+  },
+  {
+    "id": 9,
+    "name": "Hollywood Heights Resort",
+    "pricePerNight": 268,
+    "rating": 4.7,
+    "address": "7000 Hollywood Blvd, Los Angeles, CA",
+    "roomOfferings": "Deluxe suite, spa, celebrity tour desk",
+    "airportCode": "LAX"
+  },
+  {
+    "id": 10,
+    "name": "LAX Economy Lodge",
+    "pricePerNight": 129,
+    "rating": 3.9,
+    "address": "4500 W Century Blvd, Los Angeles, CA",
+    "roomOfferings": "Twin room, free parking, 24-hr check-in",
+    "airportCode": "LAX"
+  },
+  {
+    "id": 11,
+    "name": "Times Square Grand Hotel",
+    "pricePerNight": 315,
+    "rating": 4.6,
+    "address": "200 W 45th Street, New York, NY",
+    "roomOfferings": "King room, skyline view, gym",
+    "airportCode": "JFK"
+  },
+  {
+    "id": 12,
+    "name": "Brooklyn Bridge Inn",
+    "pricePerNight": 229,
+    "rating": 4.4,
+    "address": "100 Furman Street, Brooklyn, NY",
+    "roomOfferings": "Queen room, free Wi-Fi, continental breakfast",
+    "airportCode": "JFK"
+  },
+  {
+    "id": 13,
+    "name": "JFK Airport Travelodge",
+    "pricePerNight": 165,
+    "rating": 4.0,
+    "address": "145 N Conduit Avenue, Jamaica, NY",
+    "roomOfferings": "Double room, airport shuttle, parking",
+    "airportCode": "JFK"
+  },
+  {
+    "id": 14,
+    "name": "Central Park Boutique Hotel",
+    "pricePerNight": 389,
+    "rating": 4.8,
+    "address": "10 Central Park South, New York, NY",
+    "roomOfferings": "Luxury suite, concierge, spa access",
+    "airportCode": "JFK"
+  },
+  {
+    "id": 15,
+    "name": "Midtown Budget Stay",
+    "pricePerNight": 148,
+    "rating": 3.8,
+    "address": "350 W 39th Street, New York, NY",
+    "roomOfferings": "Single room, shared bath, 24-hr front desk",
+    "airportCode": "JFK"
+  },
+  {
+    "id": 16,
+    "name": "O'Hare Skyline Inn",
+    "pricePerNight": 145,
+    "rating": 4.2,
+    "address": "5000 N River Road, Chicago, IL",
+    "roomOfferings": "King room, free breakfast, parking",
+    "airportCode": "ORD"
+  },
+  {
+    "id": 17,
+    "name": "Chicago Riverwalk Hotel",
+    "pricePerNight": 219,
+    "rating": 4.5,
+    "address": "333 N Michigan Avenue, Chicago, IL",
+    "roomOfferings": "Queen suite, river view, restaurant",
+    "airportCode": "ORD"
+  },
+  {
+    "id": 18,
+    "name": "Magnificent Mile Lodge",
+    "pricePerNight": 189,
+    "rating": 4.3,
+    "address": "730 N Michigan Avenue, Chicago, IL",
+    "roomOfferings": "Double room, shopping access, gym",
+    "airportCode": "ORD"
+  },
+  {
+    "id": 19,
+    "name": "Wrigleyville Budget Inn",
+    "pricePerNight": 135,
+    "rating": 4.0,
+    "address": "3600 N Sheffield Avenue, Chicago, IL",
+    "roomOfferings": "Twin room, near stadium, free Wi-Fi",
+    "airportCode": "ORD"
+  },
+  {
+    "id": 20,
+    "name": "Hartsfield Comfort Suites",
+    "pricePerNight": 139,
+    "rating": 4.1,
+    "address": "2000 Sullivan Road, Atlanta, GA",
+    "roomOfferings": "Queen room, free shuttle, breakfast",
+    "airportCode": "ATL"
+  },
+  {
+    "id": 21,
+    "name": "Peachtree Center Hotel",
+    "pricePerNight": 199,
+    "rating": 4.4,
+    "address": "230 Peachtree Street, Atlanta, GA",
+    "roomOfferings": "King suite, rooftop pool, business center",
+    "airportCode": "ATL"
+  },
+  {
+    "id": 22,
+    "name": "Buckhead Boutique Lodge",
+    "pricePerNight": 174,
+    "rating": 4.3,
+    "address": "3400 Lenox Road, Atlanta, GA",
+    "roomOfferings": "Studio room, free Wi-Fi, fitness center",
+    "airportCode": "ATL"
+  },
+  {
+    "id": 23,
+    "name": "ATL Airport Inn",
+    "pricePerNight": 119,
+    "rating": 3.8,
+    "address": "1200 Virginia Avenue, Atlanta, GA",
+    "roomOfferings": "Double room, parking, 24-hr front desk",
+    "airportCode": "ATL"
+  },
+  {
+    "id": 24,
+    "name": "Miami Beach Grand Hotel",
+    "pricePerNight": 259,
+    "rating": 4.6,
+    "address": "100 Collins Avenue, Miami Beach, FL",
+    "roomOfferings": "Oceanfront king room, pool, bar",
+    "airportCode": "MIA"
+  },
+  {
+    "id": 25,
+    "name": "MIA Airport Travel Inn",
+    "pricePerNight": 149,
+    "rating": 4.0,
+    "address": "4000 NW 22nd Street, Miami, FL",
+    "roomOfferings": "Queen room, airport shuttle, free parking",
+    "airportCode": "MIA"
+  },
+  {
+    "id": 26,
+    "name": "Little Havana Boutique Hotel",
+    "pricePerNight": 179,
+    "rating": 4.3,
+    "address": "1500 SW 8th Street, Miami, FL",
+    "roomOfferings": "Double room, cultural tours, breakfast",
+    "airportCode": "MIA"
+  },
+  {
+    "id": 27,
+    "name": "Coral Gables Resort",
+    "pricePerNight": 289,
+    "rating": 4.7,
+    "address": "1200 Anastasia Avenue, Coral Gables, FL",
+    "roomOfferings": "Deluxe suite, golf course, fine dining",
+    "airportCode": "MIA"
+  },
+  {
+    "id": 28,
+    "name": "South Beach Hostel",
+    "pricePerNight": 89,
+    "rating": 3.6,
+    "address": "235 Washington Avenue, Miami Beach, FL",
+    "roomOfferings": "Dorm room, shared kitchen, beach access",
+    "airportCode": "MIA"
+  }
+]
