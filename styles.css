@@ -354,8 +354,6 @@ body {
 }
 
 /* ─── Room Summary (condensed, card view) ─────────────
-   Full room list only appears in the detail modal below;
-   the card just teases count + starting price. ────── */
 .room-summary {
   margin-top: auto;
 }
