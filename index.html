@@ -7,25 +7,122 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="page-shell">
-      <header class="hero">
-        <div>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-brand">
           <h1>Hotel Finder</h1>
           <p>Discover hotels in any city.</p>
         </div>
-      </header>
+        <div class="header-actions">
+          <button id="favorites-toggle" class="favorites-toggle-btn" title="Show favorites">
+            <span class="fav-icon">♡</span> <span id="fav-count" class="fav-count">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-shell">
 
       <main>
         <section class="card">
           <div class="results-header">
-            <h2 id="airport-heading">Hotel results</h2>
+            <h2>Hotel results</h2>
+            <span id="result-count" class="result-count"></span>
           </div>
-          <div id="results" class="results-list">
-            <p class="loading">Loading hotels…</p>
+
+          <!-- Filter Bar -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="search-input">Search</label>
+              <input type="text" id="search-input" placeholder="Search hotels..." />
+            </div>
+            <div class="filter-group">
+              <label for="airport-filter">Airport</label>
+              <select id="airport-filter">
+                <option value="all">All Airports</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="price-min">Min Price</label>
+              <input type="number" id="price-min" placeholder="$0" min="0" />
+            </div>
+            <div class="filter-group">
+              <label for="price-max">Max Price</label>
+              <input type="number" id="price-max" placeholder="$999+" min="0" />
+            </div>
+            <div class="filter-group">
+              <label for="rating-filter">Min Rating</label>
+              <select id="rating-filter">
+                <option value="0">Any Rating</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+                <option value="6">6+</option>
+                <option value="7">7+</option>
+                <option value="8">8+</option>
+                <option value="9">9+</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="sort-by">Sort By</label>
+              <select id="sort-by">
+                <option value="name">Name (A-Z)</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+                <option value="rating-desc">Rating (Highest)</option>
+              </select>
+            </div>
+            <div class="filter-group filter-group-favs">
+              <label for="fav-filter">Favorites</label>
+              <select id="fav-filter">
+                <option value="all">All Hotels</option>
+                <option value="favorites">Favorites Only</option>
+              </select>
+            </div>
           </div>
+
+          <!-- Edge case: offline banner -->
+          <div id="offline-banner" class="offline-banner" style="display: none;">
+            <span>📡</span> You are offline. Showing cached data.
+          </div>
+
+          <!-- Error State -->
+          <div id="error-message" class="error-message" style="display: none;">
+            <p id="error-text">⚠️ Something went wrong while loading hotels.</p>
+            <button id="retry-btn" class="retry-btn">Try Again</button>
+          </div>
+
+          <!-- Loading State -->
+          <div id="loading-indicator" class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading hotels…</p>
+          </div>
+
+          <!-- Empty State (no results) -->
+          <div id="empty-state" class="empty-state" style="display: none;">
+            <div class="empty-icon">🏨</div>
+            <p id="empty-text">No hotels found matching your criteria.</p>
+            <button id="clear-filters-btn" class="clear-filters-btn">Clear All Filters</button>
+          </div>
+
+          <div id="results" class="results-list"></div>
         </section>
       </main>
     </div>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
 
     <script src="config.js"></script>
     <script src="app.js"></script>
