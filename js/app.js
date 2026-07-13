@@ -1,7 +1,8 @@
 const CFG = window.HotelConfig;
 
 async function fetchAirportHotels(airportCode, searchQuery) {
- const url = `/api/hotels?...`;
+ const url = `https://hotel-finder-steel.vercel.app/api/hotels?q=${encodeURIComponent(searchQuery)}&check_in=${CFG.CHECK_IN}&check_out=${CFG.CHECK_OUT}`;
+
   const res = await fetch(url);
   const data = await res.json();
 
