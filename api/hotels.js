@@ -10,9 +10,6 @@ export default async function handler(req, res) {
   try {
     const url = `https://www.searchapi.io/api/v1/google/hotels?engine=google_hotels&q=${encodeURIComponent(q)}&fields=*`;
 
-    console.log("Hotel images:", hotel.images);
-
-
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${apiKey}`
@@ -34,3 +31,6 @@ res.status(200).json({
     res.status(500).json({ error: err.message || "Failed to fetch hotels" });
   }
 }
+
+console.log("RAW HOTEL DATA:", JSON.stringify(data, null, 2));
+
