@@ -284,8 +284,6 @@ async function searchHotels() {
 }
 
 function getMockHotels(query) {
-  if (!query) return [];
-
   const mockData = {
     "las vegas": [
       {
@@ -591,8 +589,14 @@ function getMockHotels(query) {
     ]
   };
 
+  const q = query ? query.toLowerCase().trim() : "";
+
+  // If no search query, return ALL hotels from every city
+  if (!q) {
+    return Object.values(mockData).flat();
+  }
+
   // Try to find a matching city key
-  const q = query.toLowerCase().trim();
   const matchedKey = Object.keys(mockData).find(k => q.includes(k) || k.includes(q));
 
   if (matchedKey) {
@@ -600,21 +604,21 @@ function getMockHotels(query) {
   }
 
   // If no specific city match, search across ALL cities for hotels whose name/address matches
-  const allHotels = [];
+  const matchedHotels = [];
   for (const city of Object.keys(mockData)) {
     for (const hotel of mockData[city]) {
       const searchText = (hotel.name + " " + hotel.address).toLowerCase();
       if (searchText.includes(q)) {
-        allHotels.push(hotel);
+        matchedHotels.push(hotel);
       }
     }
   }
 
-  if (allHotels.length > 0) {
-    return allHotels;
+  if (matchedHotels.length > 0) {
+    return matchedHotels;
   }
 
-  // If no match at all, return ALL hotels from all cities
+  // If nothing matches, return ALL hotels
   return Object.values(mockData).flat();
 }
 
@@ -638,6 +642,6 @@ document.getElementById("clearFiltersBtn").addEventListener("click", () => {
 
 updateFavCount();
 
-// Auto-load Las Vegas hotels on page load
-document.getElementById("searchInput").value = "Las Vegas";
+// Auto-load all hotels on page load
+document.getElementById("searchInput").value = "";
 searchHotels();
