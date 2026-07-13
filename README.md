@@ -9,7 +9,7 @@ I used the Google Hotels API from SearchAPI (https://www.searchapi.io/docs/googl
 ## Link to live site
 
 - https://nataliemolendyk.github.io/hotel-finder/
-- https://hotel-finder-37hyv1n9y-oim-3690.vercel.app/
+- https://hotel-finder-4y7jnajc0-oim-3690.vercel.app/
 
 ## Screenshot
 
