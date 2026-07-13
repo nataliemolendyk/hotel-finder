@@ -632,8 +632,4 @@ updateFavCount();
 
 // Auto-load all hotels on page load
 document.getElementById("searchInput").value = "";
-searchHotels()
-const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
-const data = await res.json();
-
-console.log(data);
+searchHotels();
