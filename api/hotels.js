@@ -2,15 +2,18 @@ export default async function handler(req, res) {
   const { q, check_in, check_out } = req.query;
 
   const params = new URLSearchParams({
-    engine: "google_hotels",
-    q,
-    check_in_date: check_in,
-    check_out_date: check_out,
-    api_key: process.env.SERPAPI_KEY,
-    adults: 2,
-    currency: "USD",
-    gl: "us",
-    hl: "en"
+  engine: "google_hotels",
+  type: "lodging",
+  q,
+  check_in_date: check_in,
+  check_out_date: check_out,
+  api_key: process.env.SERPAPI_KEY,
+  adults: 2,
+  currency: "USD",
+  gl: "us",
+  hl: "en"
+});
+
   });
 
   const url = `https://serpapi.com/search.json?${params.toString()}`;
