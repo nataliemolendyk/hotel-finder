@@ -8,7 +8,10 @@ export default async function handler(req, res) {
   const apiKey = process.env.SEARCHAPI_KEY;
 
   try {
-    const url = `https://www.searchapi.io/api/v1/google/hotels?engine=google_hotels&q=${encodeURIComponent(q)}`;
+    const url = `https://www.searchapi.io/api/v1/google/hotels?engine=google_hotels&q=${encodeURIComponent(q)}&fields=*`;
+
+    console.log("Hotel images:", hotel.images);
+
 
     const response = await fetch(url, {
       headers: {
