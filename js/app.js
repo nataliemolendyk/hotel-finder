@@ -95,7 +95,8 @@ function parsePrice(priceVal) {
 }
 
 function applyFilters(hotels) {
-  const minPrice = parseFloat(document.getElementById("filterMinPrice").value);
+  const minPriceEl = document.getElementById("filterMinPrice");
+  const minPrice = minPriceEl ? parseFloat(minPriceEl.value) : NaN;
   const maxPrice = parseFloat(document.getElementById("filterMaxPrice").value);
   const minRating = parseFloat(document.getElementById("filterMinRating").value);
   const sort = document.getElementById("filterSort").value;
@@ -623,12 +624,14 @@ document.getElementById("searchInput").addEventListener("keydown", e => {
 });
 
 // Filter event listeners — re-apply filters on any change
-document.getElementById("filterMinPrice").addEventListener("input", applyCurrentFilters);
+const filterMinPrice = document.getElementById("filterMinPrice");
+if (filterMinPrice) filterMinPrice.addEventListener("input", applyCurrentFilters);
 document.getElementById("filterMaxPrice").addEventListener("input", applyCurrentFilters);
 document.getElementById("filterMinRating").addEventListener("change", applyCurrentFilters);
 document.getElementById("filterSort").addEventListener("change", applyCurrentFilters);
 document.getElementById("clearFiltersBtn").addEventListener("click", () => {
-  document.getElementById("filterMinPrice").value = "";
+  const minPriceEl = document.getElementById("filterMinPrice");
+  if (minPriceEl) minPriceEl.value = "";
   document.getElementById("filterMaxPrice").value = "";
   document.getElementById("filterMinRating").value = "";
   document.getElementById("filterSort").value = "";
