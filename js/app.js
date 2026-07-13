@@ -52,4 +52,3 @@ async function searchHotels() {
 }
 
 document.getElementById("searchBtn").addEventListener("click", searchHotels);
-
