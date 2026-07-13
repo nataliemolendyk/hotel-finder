@@ -39,7 +39,7 @@ function openDetails(hotel) {
       <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
 
       <div class="modal-body">
-        <img src="${hotel.images?.[0]?.url || hotel.images?.[0]?.thumbnail || hotel.image || hotel.thumbnail || ""}" class="modal-image" onerror="this.style.display='none'" />
+        <img src="${hotel.images?.[0]?.url || hotel.images?.[0]?.thumbnail || hotel.image || hotel.thumbnail || ""}" class="modal-image" referrerpolicy="no-referrer" onerror="this.style.display='none'" />
 
         <div class="modal-info">
           <h2>${hotel.name}</h2>
@@ -179,7 +179,7 @@ function renderHotels(hotels, container) {
       <div class="hotel-image-wrapper">
         ${
           img
-            ? `<img src="${img}" class="hotel-image" alt="${name}" onerror="this.parentElement.innerHTML='<div class=\\'hotel-image-placeholder\\'><span class=\\'placeholder-icon\\'></span></div>'" />`
+            ? `<img src="${img}" class="hotel-image" alt="${name}" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=\\'hotel-image-placeholder\\'><span class=\\'placeholder-icon\\'></span></div>'" />`
             : `<div class="hotel-image-placeholder"><span class="placeholder-icon"></span></div>`
         }
         <button class="fav-btn" aria-label="Toggle favorite">♡</button>
@@ -286,7 +286,7 @@ function getMockHotels(query) {
         rating: "4.5",
         price: { lowest_price: "$129" },
         address: "3355 S Las Vegas Blvd, Las Vegas, NV 89109",
-        images: [{ url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/The_Venetian_-_Las_Vegas_03.jpg/600px-The_Venetian_-_Las_Vegas_03.jpg" }],
         room_types: [
           { name: "Standard King", price: "$129", features: ["Free WiFi", "City View"] },
           { name: "Suite", price: "$249", features: ["Living Room", "Strip View"] }
@@ -297,7 +297,7 @@ function getMockHotels(query) {
         rating: "4.3",
         price: { lowest_price: "$99" },
         address: "3570 S Las Vegas Blvd, Las Vegas, NV 89109",
-        images: [{ url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Caesars_Palace_and_fountains%2C_Las_Vegas_-_April_2026.jpg/600px-Caesars_Palace_and_fountains%2C_Las_Vegas_-_April_2026.jpg" }],
         room_types: [
           { name: "Standard Room", price: "$99", features: ["Free WiFi"] },
           { name: "Premium Suite", price: "$199", features: ["Strip View", "Jacuzzi"] }
@@ -308,7 +308,7 @@ function getMockHotels(query) {
         rating: "4.6",
         price: { lowest_price: "$159" },
         address: "3730 S Las Vegas Blvd, Las Vegas, NV 89158",
-        images: [{ url: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Aria_-_West_Pano_-_2010-03-07.jpg/600px-Aria_-_West_Pano_-_2010-03-07.jpg" }],
         room_types: [
           { name: "Deluxe King", price: "$159", features: ["City View", "Free WiFi"] },
           { name: "Corner Suite", price: "$299", features: ["Panoramic View", "Living Room"] }
@@ -319,7 +319,7 @@ function getMockHotels(query) {
         rating: "4.4",
         price: { lowest_price: "$179" },
         address: "3708 S Las Vegas Blvd, Las Vegas, NV 89109",
-        images: [{ url: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Cosmopolitan_Las_Vegas_from_the_South.jpg/600px-Cosmopolitan_Las_Vegas_from_the_South.jpg" }],
         room_types: [
           { name: "Studio", price: "$179", features: ["Balcony", "Free WiFi"] },
           { name: "One Bedroom", price: "$279", features: ["Strip View", "Kitchen"] }
@@ -330,7 +330,7 @@ function getMockHotels(query) {
         rating: "4.7",
         price: { lowest_price: "$199" },
         address: "3131 S Las Vegas Blvd, Las Vegas, NV 89109",
-        images: [{ url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Wynn_Las_Vegas_%28cropped%29.jpg/600px-Wynn_Las_Vegas_%28cropped%29.jpg" }],
         room_types: [
           { name: "Resort King", price: "$199", features: ["Garden View", "Free WiFi"] },
           { name: "Tower Suite", price: "$399", features: ["Panoramic View", "Butler Service"] }
@@ -343,7 +343,7 @@ function getMockHotels(query) {
         rating: "4.6",
         price: { lowest_price: "$349" },
         address: "768 5th Ave, New York, NY 10019",
-        images: [{ url: "https://images.unsplash.com/photo-1549638441-b787d2e11f14?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Plaza_Hotel_New_York_City_%2848208015226%29.jpg/600px-Plaza_Hotel_New_York_City_%2848208015226%29.jpg" }],
         room_types: [
           { name: "Classic Room", price: "$349", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "$699", features: ["Central Park View", "Living Room"] }
@@ -354,18 +354,18 @@ function getMockHotels(query) {
         rating: "4.7",
         price: { lowest_price: "$499" },
         address: "50 Central Park S, New York, NY 10019",
-        images: [{ url: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/50_Central_Park_South_by_Matthew_Bisanz.JPG/600px-50_Central_Park_South_by_Matthew_Bisanz.JPG" }],
         room_types: [
           { name: "Deluxe Room", price: "$499", features: ["Park View", "Free WiFi"] },
           { name: "Executive Suite", price: "$899", features: ["Living Room", "Butler Service"] }
         ]
       },
       {
-        name: "The Langham",
+        name: "The Langham, New York",
         rating: "4.5",
         price: { lowest_price: "$279" },
         address: "400 5th Ave, New York, NY 10018",
-        images: [{ url: "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/400_Fifth_Avenue_%285th_Ave_entrance%29.jpg/600px-400_Fifth_Avenue_%285th_Ave_entrance%29.jpg" }],
         room_types: [
           { name: "Superior Room", price: "$279", features: ["City View", "Free WiFi"] },
           { name: "Junior Suite", price: "$459", features: ["Living Area", "Club Access"] }
@@ -378,18 +378,18 @@ function getMockHotels(query) {
         rating: "4.4",
         price: { lowest_price: "$189" },
         address: "950 Mason St, San Francisco, CA 94108",
-        images: [{ url: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Fairmont_Hotel_SF.jpg/600px-Fairmont_Hotel_SF.jpg" }],
         room_types: [
           { name: "Classic Room", price: "$189", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "$349", features: ["Bay View", "Living Room"] }
         ]
       },
       {
-        name: "Hotel Nikko",
+        name: "Hotel Nikko San Francisco",
         rating: "4.3",
         price: { lowest_price: "$159" },
         address: "222 Mason St, San Francisco, CA 94102",
-        images: [{ url: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Hotel_Nikko_San_Francisco.jpg/600px-Hotel_Nikko_San_Francisco.jpg" }],
         room_types: [
           { name: "Standard King", price: "$159", features: ["Free WiFi"] },
           { name: "Executive Suite", price: "$289", features: ["City View", "Club Access"] }
@@ -400,7 +400,7 @@ function getMockHotels(query) {
         rating: "4.6",
         price: { lowest_price: "$299" },
         address: "600 Stockton St, San Francisco, CA 94108",
-        images: [{ url: "https://images.unsplash.com/photo-1601918774946-25832a0be0d9?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Ritz-Carlton%2C_San_Francisco.jpg/600px-Ritz-Carlton%2C_San_Francisco.jpg" }],
         room_types: [
           { name: "Deluxe Room", price: "$299", features: ["City View", "Free WiFi"] },
           { name: "Club Suite", price: "$549", features: ["Club Lounge", "Living Room"] }
@@ -413,7 +413,7 @@ function getMockHotels(query) {
         rating: "4.5",
         price: { lowest_price: "$249" },
         address: "4441 Collins Ave, Miami Beach, FL 33140",
-        images: [{ url: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Fontainebleau_Miami_Beach.jpg/600px-Fontainebleau_Miami_Beach.jpg" }],
         room_types: [
           { name: "Ocean View King", price: "$249", features: ["Ocean View", "Free WiFi"] },
           { name: "Suite", price: "$449", features: ["Ocean View", "Living Room", "Balcony"] }
@@ -424,7 +424,7 @@ function getMockHotels(query) {
         rating: "4.7",
         price: { lowest_price: "$399" },
         address: "2001 Collins Ave, Miami Beach, FL 33139",
-        images: [{ url: "https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Miami_Beach_architecture_%2829198822917%29.jpg/600px-Miami_Beach_architecture_%2829198822917%29.jpg" }],
         room_types: [
           { name: "Ocean Suite", price: "$399", features: ["Ocean View", "Free WiFi"] },
           { name: "Penthouse", price: "$899", features: ["Panoramic View", "Butler Service"] }
@@ -435,7 +435,7 @@ function getMockHotels(query) {
         rating: "4.4",
         price: { lowest_price: "$299" },
         address: "3201 Collins Ave, Miami Beach, FL 33140",
-        images: [{ url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Faena_Hotel_Miami_Beach_%2836330008486%29.jpg/600px-Faena_Hotel_Miami_Beach_%2836330008486%29.jpg" }],
         room_types: [
           { name: "Deluxe Room", price: "$299", features: ["Ocean View", "Free WiFi"] },
           { name: "Suite", price: "$599", features: ["Living Room", "Balcony"] }
@@ -448,7 +448,7 @@ function getMockHotels(query) {
         rating: "4.6",
         price: { lowest_price: "$299" },
         address: "108 E Superior St, Chicago, IL 60611",
-        images: [{ url: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/The_Peninsula_Chicago_Hotel.jpg/600px-The_Peninsula_Chicago_Hotel.jpg" }],
         room_types: [
           { name: "Deluxe King", price: "$299", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "$599", features: ["Lake View", "Living Room"] }
@@ -459,7 +459,7 @@ function getMockHotels(query) {
         rating: "4.5",
         price: { lowest_price: "$269" },
         address: "330 N Wabash Ave, Chicago, IL 60611",
-        images: [{ url: "https://images.unsplash.com/photo-1494526585155-cd2d1d5ddf28?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/IBM_Building_%28Chicago%29.jpg/600px-IBM_Building_%28Chicago%29.jpg" }],
         room_types: [
           { name: "Superior Room", price: "$269", features: ["River View", "Free WiFi"] },
           { name: "Executive Suite", price: "$529", features: ["City View", "Club Access"] }
@@ -470,7 +470,7 @@ function getMockHotels(query) {
         rating: "4.7",
         price: { lowest_price: "$349" },
         address: "120 E Delaware Pl, Chicago, IL 60611",
-        images: [{ url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Chicago_skyline_at_night_%282016%29_-2.jpg/600px-Chicago_skyline_at_night_%282016%29_-2.jpg" }],
         room_types: [
           { name: "Premier King", price: "$349", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "$699", features: ["Lake View", "Living Room"] }
@@ -483,7 +483,7 @@ function getMockHotels(query) {
         rating: "4.7",
         price: { lowest_price: "£299" },
         address: "Strand, London WC2R 0EZ, UK",
-        images: [{ url: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/The_Savoy_Hotel_%28883547748%29.jpg/600px-The_Savoy_Hotel_%28883547748%29.jpg" }],
         room_types: [
           { name: "Classic Room", price: "£299", features: ["City View", "Free WiFi"] },
           { name: "River Suite", price: "£699", features: ["Thames View", "Living Room"] }
@@ -494,7 +494,7 @@ function getMockHotels(query) {
         rating: "4.8",
         price: { lowest_price: "£399" },
         address: "150 Piccadilly, London W1J 9BR, UK",
-        images: [{ url: "https://images.unsplash.com/photo-1549638441-b787d2e11f14?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/The_Ritz_Hotel%2C_London_%282%29.jpg/600px-The_Ritz_Hotel%2C_London_%282%29.jpg" }],
         room_types: [
           { name: "Superior Room", price: "£399", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "£899", features: ["Living Room", "Butler Service"] }
@@ -505,7 +505,7 @@ function getMockHotels(query) {
         rating: "4.6",
         price: { lowest_price: "£349" },
         address: "53 Park Ln, London W1K 1QA, UK",
-        images: [{ url: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/The_Dorchester_Hotel_-_geograph.org.uk_-_1310889.jpg/600px-The_Dorchester_Hotel_-_geograph.org.uk_-_1310889.jpg" }],
         room_types: [
           { name: "Deluxe Room", price: "£349", features: ["Park View", "Free WiFi"] },
           { name: "Executive Suite", price: "£749", features: ["Living Room", "Club Access"] }
@@ -518,7 +518,7 @@ function getMockHotels(query) {
         rating: "4.8",
         price: { lowest_price: "€499" },
         address: "15 Place Vendôme, 75001 Paris, France",
-        images: [{ url: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Place_Vendome_Paris.jpg/600px-Place_Vendome_Paris.jpg" }],
         room_types: [
           { name: "Classic Room", price: "€499", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "€999", features: ["Place Vendôme View", "Living Room"] }
@@ -529,7 +529,7 @@ function getMockHotels(query) {
         rating: "4.7",
         price: { lowest_price: "€399" },
         address: "228 Rue de Rivoli, 75001 Paris, France",
-        images: [{ url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Le_Meurice_Hotel%2C_Paris_%282%29.jpg/600px-Le_Meurice_Hotel%2C_Paris_%282%29.jpg" }],
         room_types: [
           { name: "Superior Room", price: "€399", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "€799", features: ["Tuileries View", "Living Room"] }
@@ -540,7 +540,7 @@ function getMockHotels(query) {
         rating: "4.9",
         price: { lowest_price: "€599" },
         address: "31 Av. George V, 75008 Paris, France",
-        images: [{ url: "https://images.unsplash.com/photo-1549638441-b787d2e11f14?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Hotel_George_V_Paris_05.jpg/600px-Hotel_George_V_Paris_05.jpg" }],
         room_types: [
           { name: "Premier Room", price: "€599", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "€1,199", features: ["Eiffel Tower View", "Living Room"] }
@@ -553,7 +553,7 @@ function getMockHotels(query) {
         rating: "4.7",
         price: { lowest_price: "¥45,000" },
         address: "1-8-1 Yurakucho, Chiyoda City, Tokyo 100-0006, Japan",
-        images: [{ url: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Peninsula_Tokyo.JPG/600px-Peninsula_Tokyo.JPG" }],
         room_types: [
           { name: "Deluxe Room", price: "¥45,000", features: ["City View", "Free WiFi"] },
           { name: "Suite", price: "¥90,000", features: ["Imperial Garden View", "Living Room"] }
@@ -564,10 +564,10 @@ function getMockHotels(query) {
         rating: "4.9",
         price: { lowest_price: "¥80,000" },
         address: "1-5-6 Otemachi, Chiyoda City, Tokyo 100-0004, Japan",
-        images: [{ url: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Tokyo_Garden_Terrace_Kioicho_2020.jpg/600px-Tokyo_Garden_Terrace_Kioicho_2020.jpg" }],
         room_types: [
           { name: "Premier Room", price: "¥80,000", features: ["City View", "Free WiFi"] },
-          { name: "Suite", price: "¥150,000", features: ["Panoramic View", "Living Room", "Japanes Bath"] }
+          { name: "Suite", price: "¥150,000", features: ["Panoramic View", "Living Room", "Japanese Bath"] }
         ]
       },
       {
@@ -575,7 +575,7 @@ function getMockHotels(query) {
         rating: "4.6",
         price: { lowest_price: "¥35,000" },
         address: "3-7-1-2 Nishi-Shinjuku, Shinjuku City, Tokyo 163-1055, Japan",
-        images: [{ url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800" }],
+        images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Park_Hyatt_Tokyo_2012.jpg/600px-Park_Hyatt_Tokyo_2012.jpg" }],
         room_types: [
           { name: "Standard King", price: "¥35,000", features: ["City View", "Free WiFi"] },
           { name: "Executive Suite", price: "¥75,000", features: ["Mt. Fuji View", "Club Access"] }
