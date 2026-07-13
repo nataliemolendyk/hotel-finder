@@ -1,54 +1,85 @@
 async function searchHotels() {
-  const query = document.getElementById("searchInput").value;
-
-  const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
-  const data = await res.json();
-
+  const query = document.getElementById("searchInput").value.trim();
   const container = document.getElementById("results");
-  container.innerHTML = "";
 
-  // SearchAPI.io returns "results"
-  const hotels = data.results;
+  container.innerHTML = `
+    <div class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Loading hotels...</p>
+    </div>
+  `;
 
-  if (!hotels || hotels.length === 0) {
-    container.innerHTML = "<p>No hotels found.</p>";
-    return;
-  }
+  try {
+    const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
+    const data = await res.json();
 
-  hotels.forEach(hotel => {
-    const card = document.createElement("div");
-    card.className = "hotel-card";
+    const hotels = data.results;
+    container.innerHTML = "";
 
-    const img = hotel.images?.[0]?.url || "";
-    const name = hotel.name || "Unknown Hotel";
-    const rating = hotel.rating || "N/A";
-    const price = hotel.price?.lowest_price || "N/A";
-    const address = hotel.address || "Address not available";
+    if (!hotels || hotels.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">😕</div>
+          <p>No hotels found.</p>
+        </div>
+      `;
+      return;
+    }
 
-    const roomTypes = hotel.room_types
-      ? hotel.room_types.map(r => `<li>${r.name}</li>`).join("")
-      : "<li>No room types listed</li>";
+    const list = document.createElement("div");
+    list.className = "results-list";
 
-    const amenities = hotel.amenities
-      ? hotel.amenities.map(a => `<li>${a}</li>`).join("")
-      : "<li>No amenities listed</li>";
+    hotels.forEach(hotel => {
+      const card = document.createElement("div");
+      card.className = "hotel-card";
 
-    card.innerHTML = `
-      <img src="${img}" class="hotel-img" />
-      <h2>${name}</h2>
-      <p><strong>Rating:</strong> ${rating}</p>
-      <p><strong>Price:</strong> ${price}</p>
-      <p><strong>Address:</strong> ${address}</p>
+      const img = hotel.images?.[0]?.url || "";
+      const name = hotel.name || "Unknown Hotel";
+      const rating = hotel.rating || "N/A";
+      const price = hotel.price?.lowest_price || "N/A";
+      const address = hotel.address || "Address not available";
 
-      <h3>Room Types</h3>
-      <ul>${roomTypes}</ul>
+      card.innerHTML = `
+        <div class="hotel-image-wrapper">
+          ${
+            img
+              ? `<img src="${img}" class="hotel-image" />`
+              : `<div class="hotel-image-placeholder">🏨</div>`
+          }
+        </div>
 
-      <h3>Amenities</h3>
-      <ul>${amenities}</ul>
+        <div class="hotel-card-body">
+          <h3>${name}</h3>
+
+          <div class="hotel-meta">
+            <span>⭐ ${rating}</span>
+            <span>💵 ${price}</span>
+          </div>
+
+          <div class="hotel-details">
+            <div class="detail-row">
+              <span class="detail-icon">📍</span>
+              <span>${address}</span>
+            </div>
+          </div>
+
+          <button class="view-details-btn">View Details</button>
+        </div>
+      `;
+
+      list.appendChild(card);
+    });
+
+    container.appendChild(list);
+
+  } catch (err) {
+    container.innerHTML = `
+      <div class="error-message">
+        <p>Something went wrong.</p>
+        <button class="retry-btn" onclick="searchHotels()">Try Again</button>
+      </div>
     `;
-
-    container.appendChild(card);
-  });
+  }
 }
 
 document.getElementById("searchBtn").addEventListener("click", searchHotels);
