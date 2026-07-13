@@ -137,10 +137,7 @@ function applyFilters(hotels) {
 function renderHotels(hotels, container) {
   container.innerHTML = "";
 
-  const filterBar = document.getElementById("filterBar");
-
   if (hotels.length === 0) {
-    filterBar.style.display = "none";
     container.innerHTML = `
       <div class="results-header">
         <h2>No Results</h2>
@@ -152,8 +149,6 @@ function renderHotels(hotels, container) {
     `;
     return;
   }
-
-  filterBar.style.display = "flex";
 
   const header = document.createElement("div");
   header.className = "results-header";
