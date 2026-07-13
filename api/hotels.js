@@ -1,32 +1,32 @@
 export default async function handler(req, res) {
-  const { q, check_in, check_out } = req.query;
+  const { q } = req.query;
 
-  function normalizeDate(date) {
-    return new Date(date).toISOString().split("T")[0];
+  if (!q) {
+    return res.status(400).json({ error: "Missing location query" });
   }
 
-  const params = new URLSearchParams({
-    engine: "google_hotels",
-    q: q || "",
-    check_in_date: normalizeDate(check_in),
-    check_out_date: normalizeDate(check_out),
-    currency: "USD",
-    api_key: process.env.SERPAPI_KEY
-  });
+  const apiKey = process.env.GOOGLE_PLACES_KEY;
 
-  const url = `https://serpapi.com/hotels.json?${params.toString()}`;
+  // Convert city name → coordinates
+  const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(q)}&key=${apiKey}`;
 
   try {
-    const response = await fetch(url);
+    const geoRes = await fetch(geoUrl);
+    const geoData = await geoRes.json();
 
-    const text = await response.text();
-
-    if (text.startsWith("<")) {
-      throw new Error("SerpAPI returned HTML instead of JSON");
+    if (!geoData.results.length) {
+      return res.status(404).json({ error: "Location not found" });
     }
 
-    const data = JSON.parse(text);
-    res.status(200).json(data);
+    const { lat, lng } = geoData.results[0].geometry.location;
+
+    // Search for hotels near the coordinates
+    const placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=lodging&key=${apiKey}`;
+
+    const placesRes = await fetch(placesUrl);
+    const placesData = await placesRes.json();
+
+    res.status(200).json(placesData.results);
 
   } catch (err) {
     res.status(500).json({ error: err.message || "Failed to fetch hotels" });
