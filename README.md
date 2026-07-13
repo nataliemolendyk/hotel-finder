@@ -13,5 +13,4 @@ I used the Google Hotels API from SearchAPI (https://www.searchapi.io/docs/googl
 
 ## Screenshot
 
-images\Screenshot 2026-07-13 045340.png 
-
+images\Screenshot 2026-07-13 183146.png
