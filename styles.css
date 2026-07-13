@@ -547,6 +547,28 @@ body {
   display: flex;
 }
 
+.filter-group-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.filter-group-actions .clear-filters-btn {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-group-actions .clear-filters-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* ─── Offline Banner ────────────────────────────────── */
 .offline-banner {
   display: flex;

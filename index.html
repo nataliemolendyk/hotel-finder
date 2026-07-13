@@ -33,6 +33,39 @@
   </header>
 
   <main class="page-shell">
+    <div class="filter-bar" id="filterBar" style="display:none">
+      <div class="filter-group">
+        <label for="filterMinPrice">Min Price</label>
+        <input type="number" id="filterMinPrice" placeholder="$0" min="0" />
+      </div>
+      <div class="filter-group">
+        <label for="filterMaxPrice">Max Price</label>
+        <input type="number" id="filterMaxPrice" placeholder="No max" min="0" />
+      </div>
+      <div class="filter-group">
+        <label for="filterMinRating">Min Rating</label>
+        <select id="filterMinRating">
+          <option value="">Any</option>
+          <option value="4.5">4.5 ★</option>
+          <option value="4.0">4.0 ★</option>
+          <option value="3.5">3.5 ★</option>
+          <option value="3.0">3.0 ★</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filterSort">Sort By</label>
+        <select id="filterSort">
+          <option value="">Default</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="rating-desc">Rating: High → Low</option>
+        </select>
+      </div>
+      <div class="filter-group filter-group-actions">
+        <label>&nbsp;</label>
+        <button class="clear-filters-btn" id="clearFiltersBtn">Clear Filters</button>
+      </div>
+    </div>
     <div id="results"></div>
   </main>
 

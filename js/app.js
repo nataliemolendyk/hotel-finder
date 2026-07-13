@@ -1,4 +1,6 @@
 let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+let currentHotels = [];
+let currentQuery = "";
 
 function showToast(msg) {
   const container = document.getElementById("toastContainer");
@@ -37,19 +39,19 @@ function openDetails(hotel) {
       <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
 
       <div class="modal-body">
-        <img src="${hotel.images?.[0]?.url || ""}" class="modal-image" onerror="this.style.display='none'" />
+        <img src="${hotel.images?.[0]?.url || hotel.images?.[0]?.thumbnail || hotel.image || hotel.thumbnail || ""}" class="modal-image" onerror="this.style.display='none'" />
 
         <div class="modal-info">
           <h2>${hotel.name}</h2>
 
           <div class="modal-meta">
             <span>★ ${hotel.rating || "N/A"}</span>
-            <span>${hotel.price?.lowest_price || "N/A"}</span>
+            <span>${hotel.price?.lowest_price || hotel.price || "N/A"}</span>
           </div>
 
           <div class="modal-address">
             <span class="modal-addr-icon">⌂</span>
-            <span>${hotel.address || "Address not available"}</span>
+            <span>${hotel.address || hotel.location || "Address not available"}</span>
           </div>
 
           <div class="modal-section">
@@ -85,60 +87,78 @@ function openDetails(hotel) {
   document.body.appendChild(overlay);
 }
 
-async function searchHotels() {
-  const query = document.getElementById("searchInput").value.trim();
-  const container = document.getElementById("results");
+function parsePrice(priceVal) {
+  if (!priceVal) return NaN;
+  const str = String(priceVal);
+  const num = parseFloat(str.replace(/[^0-9.]/g, ""));
+  return isNaN(num) ? NaN : num;
+}
 
-  container.innerHTML = `
-    <div class="loading-indicator">
-      <div class="spinner"></div>
-      <p>Loading hotels...</p>
-    </div>
-  `;
+function applyFilters(hotels) {
+  const minPrice = parseFloat(document.getElementById("filterMinPrice").value);
+  const maxPrice = parseFloat(document.getElementById("filterMaxPrice").value);
+  const minRating = parseFloat(document.getElementById("filterMinRating").value);
+  const sort = document.getElementById("filterSort").value;
 
-  try {
-    const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
-    const data = await res.json();
+  let filtered = hotels.filter(h => {
+    const p = parsePrice(h.price?.lowest_price || h.price);
+    const r = parseFloat(h.rating);
 
-    // Handle various API response shapes
-    const hotels = data.results || data.hotels || data.properties || data.list || [];
+    if (!isNaN(minPrice) && (isNaN(p) || p < minPrice)) return false;
+    if (!isNaN(maxPrice) && (isNaN(p) || p > maxPrice)) return false;
+    if (!isNaN(minRating) && (isNaN(r) || r < minRating)) return false;
 
-    if (!hotels || hotels.length === 0) {
-      // Fallback to mock data if API returns empty
-      const mockHotels = getMockHotels(query);
-      if (mockHotels.length > 0) {
-        renderHotels(mockHotels, container);
-        return;
-      }
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">−</div>
-          <p>No hotels found for "${query}".</p>
-        </div>
-      `;
-      return;
-    }
+    return true;
+  });
 
-    renderHotels(hotels, container);
-
-  } catch (err) {
-    console.warn("API unavailable, using mock data:", err.message);
-    const mockHotels = getMockHotels(document.getElementById("searchInput").value.trim());
-    if (mockHotels.length > 0) {
-      renderHotels(mockHotels, container);
-    } else {
-      container.innerHTML = `
-        <div class="error-message">
-          <p>Something went wrong.</p>
-          <button class="retry-btn" onclick="searchHotels()">Try Again</button>
-        </div>
-      `;
-    }
+  if (sort === "price-asc") {
+    filtered.sort((a, b) => {
+      const pa = parsePrice(a.price?.lowest_price || a.price);
+      const pb = parsePrice(b.price?.lowest_price || b.price);
+      return (isNaN(pa) ? Infinity : pa) - (isNaN(pb) ? Infinity : pb);
+    });
+  } else if (sort === "price-desc") {
+    filtered.sort((a, b) => {
+      const pa = parsePrice(a.price?.lowest_price || a.price);
+      const pb = parsePrice(b.price?.lowest_price || b.price);
+      return (isNaN(pb) ? -Infinity : pb) - (isNaN(pa) ? -Infinity : pa);
+    });
+  } else if (sort === "rating-desc") {
+    filtered.sort((a, b) => {
+      const ra = parseFloat(a.rating);
+      const rb = parseFloat(b.rating);
+      return (isNaN(rb) ? -Infinity : rb) - (isNaN(ra) ? -Infinity : ra);
+    });
   }
+
+  return filtered;
 }
 
 function renderHotels(hotels, container) {
   container.innerHTML = "";
+
+  const filterBar = document.getElementById("filterBar");
+
+  if (hotels.length === 0) {
+    filterBar.style.display = "none";
+    container.innerHTML = `
+      <div class="results-header">
+        <h2>No Results</h2>
+      </div>
+      <div class="empty-state">
+        <div class="empty-icon">−</div>
+        <p>No hotels match your filters. Try adjusting them.</p>
+      </div>
+    `;
+    return;
+  }
+
+  filterBar.style.display = "flex";
+
+  const header = document.createElement("div");
+  header.className = "results-header";
+  header.innerHTML = `<h2>${hotels.length} hotel${hotels.length !== 1 ? "s" : ""} found</h2>`;
+  container.appendChild(header);
 
   const list = document.createElement("div");
   list.className = "results-list";
@@ -147,7 +167,14 @@ function renderHotels(hotels, container) {
     const card = document.createElement("div");
     card.className = "hotel-card";
 
-    const img = hotel.images?.[0]?.url || hotel.image || hotel.thumbnail || "";
+    // Pick the best available image: images[0].url > images[0].thumbnail > hotel.image > hotel.thumbnail
+    const img =
+      hotel.images?.[0]?.url ||
+      hotel.images?.[0]?.thumbnail ||
+      hotel.image ||
+      hotel.thumbnail ||
+      "";
+
     const name = hotel.name || hotel.hotel_name || "Unknown Hotel";
     const rating = hotel.rating || hotel.star_rating || "N/A";
     const price = hotel.price?.lowest_price || hotel.price || hotel.rate_per_night?.lowest || "N/A";
@@ -189,6 +216,71 @@ function renderHotels(hotels, container) {
   });
 
   container.appendChild(list);
+}
+
+function renderWithFilters(hotels, container) {
+  currentHotels = hotels;
+  const filtered = applyFilters(hotels);
+  renderHotels(filtered, container);
+}
+
+function applyCurrentFilters() {
+  const container = document.getElementById("results");
+  const filtered = applyFilters(currentHotels);
+  renderHotels(filtered, container);
+}
+
+async function searchHotels() {
+  const query = document.getElementById("searchInput").value.trim();
+  const container = document.getElementById("results");
+
+  currentQuery = query;
+
+  container.innerHTML = `
+    <div class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Loading hotels...</p>
+    </div>
+  `;
+
+  try {
+    const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
+    const data = await res.json();
+
+    // Handle various API response shapes from SearchAPI and other providers
+    const hotels = data.results || data.hotels || data.properties || data.list || data.hotel_results || [];
+
+    if (!hotels || hotels.length === 0) {
+      const mockHotels = getMockHotels(query);
+      if (mockHotels.length > 0) {
+        renderWithFilters(mockHotels, container);
+        return;
+      }
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">−</div>
+          <p>No hotels found for "${query}".</p>
+        </div>
+      `;
+      return;
+    }
+
+    renderWithFilters(hotels, container);
+
+  } catch (err) {
+    console.warn("API unavailable, using mock data:", err.message);
+    const mockHotels = getMockHotels(currentQuery);
+    if (mockHotels.length > 0) {
+      renderWithFilters(mockHotels, container);
+    } else {
+      container.innerHTML = `
+        <div class="error-message">
+          <p>Something went wrong.</p>
+          <button class="retry-btn" onclick="searchHotels()">Try Again</button>
+        </div>
+      `;
+    }
+  }
 }
 
 function getMockHotels(query) {
@@ -530,6 +622,20 @@ document.getElementById("searchBtn").addEventListener("click", searchHotels);
 document.getElementById("searchInput").addEventListener("keydown", e => {
   if (e.key === "Enter") searchHotels();
 });
+
+// Filter event listeners — re-apply filters on any change
+document.getElementById("filterMinPrice").addEventListener("input", applyCurrentFilters);
+document.getElementById("filterMaxPrice").addEventListener("input", applyCurrentFilters);
+document.getElementById("filterMinRating").addEventListener("change", applyCurrentFilters);
+document.getElementById("filterSort").addEventListener("change", applyCurrentFilters);
+document.getElementById("clearFiltersBtn").addEventListener("click", () => {
+  document.getElementById("filterMinPrice").value = "";
+  document.getElementById("filterMaxPrice").value = "";
+  document.getElementById("filterMinRating").value = "";
+  document.getElementById("filterSort").value = "";
+  applyCurrentFilters();
+});
+
 updateFavCount();
 
 // Auto-load Las Vegas hotels on page load
