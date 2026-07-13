@@ -1,4 +1,14 @@
 export default async function handler(req, res) {
+  // Enable CORS so GitHub Pages can call this API
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight OPTIONS request
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   const { q } = req.query;
 
   if (!q) {
@@ -16,9 +26,10 @@ export default async function handler(req, res) {
       }
     });
 
+    const data = await response.json();
+
     const hotels = (data.properties || data.hotel_results || []).map(hotel => {
   const imagesArray = Array.isArray(hotel.images) ? hotel.images : [];
-
   return {
     ...hotel,
     images: imagesArray.map(img => ({
@@ -28,10 +39,7 @@ export default async function handler(req, res) {
   };
 });
 
-
-res.status(200).json({
-  hotels
-});
+    res.status(200).json({ hotels });
   } catch (err) {
     res.status(500).json({ error: err.message || "Failed to fetch hotels" });
   }

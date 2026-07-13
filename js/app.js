@@ -239,10 +239,14 @@ async function searchHotels() {
     </div>
   `;
 
-  // Try the real API via Vercel serverless function
-  try {
-    const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
-    const data = await res.json();
+  // Try the real API via Vercel serverless function (works from both Vercel and GitHub Pages)
+    try {
+      // Use the Vercel-hosted API URL so it works from GitHub Pages too
+      const API_BASE = window.location.hostname.includes("github.io") || window.location.hostname.includes("nataliemolendyk.github.io")
+        ? "https://hotel-finder-ox3ggf9by-oim-3690.vercel.app"
+        : "";
+      const res = await fetch(`${API_BASE}/api/hotels?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
 
     // Handle various API response shapes
     const hotels = data.hotels || [];

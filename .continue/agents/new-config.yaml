@@ -1,0 +1,13 @@
+name: OpenRouter Config
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek V4 Flash
+    provider: openrouter
+    model: deepseek/deepseek-v4-flash
+    apiKey: ${{ secrets.OPENROUTER_API_KEY }}
+    roles:
+      - chat
+      - edit
+      - apply
