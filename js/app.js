@@ -7,12 +7,15 @@ async function searchHotels() {
   const container = document.getElementById("results");
   container.innerHTML = "";
 
-  if (!data.hotels || data.hotels.length === 0) {
+  // SearchAPI.io returns "results"
+  const hotels = data.results;
+
+  if (!hotels || hotels.length === 0) {
     container.innerHTML = "<p>No hotels found.</p>";
     return;
   }
 
-  data.hotels.forEach(hotel => {
+  hotels.forEach(hotel => {
     const card = document.createElement("div");
     card.className = "hotel-card";
 
@@ -49,3 +52,4 @@ async function searchHotels() {
 }
 
 document.getElementById("searchBtn").addEventListener("click", searchHotels);
+
