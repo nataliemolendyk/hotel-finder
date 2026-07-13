@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 export default async function handler(req, res) {
   const { q, check_in, check_out } = req.query;
 
