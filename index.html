@@ -14,14 +14,6 @@
         <p>Search hotels worldwide</p>
       </div>
 
-      <form class="search-form" onsubmit="event.preventDefault(); searchHotels();">
-        <label>
-          Search City
-          <input id="searchInput" placeholder="e.g. Las Vegas, New York, London, Tokyo" />
-        </label>
-        <button id="searchBtn">Search</button>
-      </form>
-
       <div class="header-actions">
         <button class="favorites-toggle-btn" id="toggleFavs">
           <span class="fav-icon">♡</span>
@@ -33,10 +25,14 @@
   </header>
 
   <main class="page-shell">
-    <div class="filter-bar" id="filterBar" style="display:none">
-      <div class="filter-group">
-        <label for="filterMinPrice">Min Price</label>
-        <input type="number" id="filterMinPrice" placeholder="$0" min="0" />
+    <div class="filter-bar" id="filterBar">
+      <div class="filter-group filter-group-search">
+        <label for="searchInput">City</label>
+        <input id="searchInput" placeholder="e.g. Las Vegas, New York, London, Tokyo" />
+      </div>
+      <div class="filter-group filter-group-btn">
+        <label>&nbsp;</label>
+        <button id="searchBtn">Search</button>
       </div>
       <div class="filter-group">
         <label for="filterMaxPrice">Max Price</label>

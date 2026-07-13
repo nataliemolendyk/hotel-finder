@@ -68,52 +68,6 @@ body {
   font-size: 0.85rem;
 }
 
-.search-form {
-  display: grid;
-  gap: 14px;
-}
-
-.search-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-.search-form input,
-.search-form button {
-  border: 1px solid var(--border);
-  padding: 10px 12px;
-  font: inherit;
-}
-
-.search-form button {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.search-form button:hover {
-  background: var(--navy-dark);
-}
-
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  gap: 12px;
-}
-
-.results-header h2 {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
 /* ─── Filter Bar ─────────────────────────────────────── */
 .filter-bar {
   display: flex;
@@ -156,6 +110,31 @@ body {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(26, 37, 64, 0.15);
+}
+
+.filter-group-search {
+  flex: 2 1 220px;
+}
+
+.filter-group-btn {
+  flex: 0 1 auto;
+  min-width: unset;
+}
+
+.filter-group-btn button {
+  padding: 8px 20px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.filter-group-btn button:hover {
+  background: var(--navy-dark);
 }
 
 /* ─── Result Count ───────────────────────────────────── */
