@@ -8,6 +8,7 @@ window.HotelConfig = {
     { airportCode: "MIA", search: "hotels in Miami" }
   ],
 
-  CHECK_IN: "2025-07-20",
-  CHECK_OUT: "2025-07-23"
+  CHECK_IN: "2026-08-01",
+CHECK_OUT: "2026-08-05"
+
 };
