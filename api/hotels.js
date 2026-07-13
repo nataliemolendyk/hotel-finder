@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     hl: "en"
   });
 
-  const url = `https://serpapi.com/search.json?${params.toString()}`;
+  const url = `https://serpapi.com/hotels.json?${params.toString()}`;
 
   try {
     const response = await fetch(url);
