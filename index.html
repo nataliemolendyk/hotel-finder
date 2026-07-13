@@ -6,14 +6,6 @@
         <p>Search hotels worldwide</p>
       </div>
 
-      <div class="header-actions">
-        <button class="favorites-toggle-btn" id="toggleFavs">
-          <span class="fav-icon">❤️</span>
-          Favorites
-          <span class="fav-count" id="favCount">0</span>
-        </button>
-      </div>
-
       <form class="search-form" onsubmit="event.preventDefault(); searchHotels();">
         <label>
           Search City
@@ -21,6 +13,14 @@
         </label>
         <button id="searchBtn">Search</button>
       </form>
+
+      <div class="header-actions">
+        <button class="favorites-toggle-btn" id="toggleFavs">
+          <span class="fav-icon">❤️</span>
+          Favorites
+          <span class="fav-count" id="favCount">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
