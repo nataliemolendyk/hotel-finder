@@ -13,7 +13,7 @@
 - Provide users with quick access to hotel options in their destination city
 - Enable users to easily compare hotels based on their preferences (price, ratings, amenities, location)
 - Offer a mobile-friendly, intuitive interface
-- Successfully integrate Booking Scraper API to retrieve real hotel data
+- Successfully integrate Google Hotels API to retrieve real hotel data
 
 ## 3. User Stories
 
@@ -114,7 +114,7 @@
 ## 5. Technical Specifications
 
 ### 5.1 APIs Used
-- **Booking Scraper** (via Apify): Retrieve hotel information, pricing, ratings, and amenities based on city input
+- **Booking Scraper** (via SearchAPI): Retrieve hotel information, pricing, ratings, and amenities based on city input
 
 ### 5.2 Technology Stack
 - **Frontend:** Vanilla HTML, CSS, JavaScript
@@ -180,12 +180,12 @@
 ### Assumptions
 - Users have internet access
 - Users know the name of the city they want to visit
-- APIs (Apify) remain available and responsive
+- APIs (SearchAPI) remain available and responsive
 - Hotel pricing and availability data updates reasonably frequently
 
 ### Constraints
 - Dependent on third-party APIs for data accuracy and uptime
-- Limited to hotels available through Booking.com data
+- Limited to hotels available through Google Hotels data
 - May face rate limits from APIs if traffic is high
 - Async/fetch complexity requires careful error handling
 

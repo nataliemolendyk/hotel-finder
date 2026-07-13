@@ -5,7 +5,7 @@ I am building a website that finds hotels based on a user's destination city and
 This website is for anyone who is new to the selected destination, mainly visitors/travelers, and they want a hotel close to the airport with their specified preferences they select.
 
 ## Which API I'm using:
-I am using the Booking Scraper from Apify https://apify.com/voyager/booking-scraper.
+I am using the Google Hotels API from  SearchAPI https://www.searchapi.io/docs/google-hotels-api.
 
 ## Why I chose this:
 I chose this API because I am interested in travelling. A main factor of travelling is finding affordable hotels or close hotels to major cities. In this data, I am the most interested in the hotel information, reviews/ratings, and hotel surroundings.
