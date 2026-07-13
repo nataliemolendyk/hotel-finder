@@ -6,17 +6,27 @@
         <p>Search hotels worldwide</p>
       </div>
 
-      <div class="search-form">
+      <div class="header-actions">
+        <button class="favorites-toggle-btn" id="toggleFavs">
+          <span class="fav-icon">❤️</span>
+          Favorites
+          <span class="fav-count" id="favCount">0</span>
+        </button>
+      </div>
+
+      <form class="search-form" onsubmit="event.preventDefault(); searchHotels();">
         <label>
           Search City
           <input id="searchInput" placeholder="e.g. Las Vegas" />
         </label>
         <button id="searchBtn">Search</button>
-      </div>
+      </form>
     </div>
   </header>
 
   <main class="page-shell">
     <div id="results"></div>
   </main>
+
+  <div class="toast-container" id="toastContainer"></div>
 </body>
