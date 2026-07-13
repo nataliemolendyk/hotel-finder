@@ -3,17 +3,8 @@ window.HotelConfig = {
   CHECK_OUT: "2026-08-05",
 
   AIRPORTS: [
-    {
-      airportCode: "SFO",
-      search: "hotels in san francisco"
-    },
-    {
-      airportCode: "OAK",
-      search: "hotels in oakland"
-    },
-    {
-      airportCode: "SJC",
-      search: "hotels in san jose"
-    }
+    { airportCode: "SFO", search: "san francisco hotel prices" },
+    { airportCode: "OAK", search: "oakland hotel prices" },
+    { airportCode: "SJC", search: "san jose hotel prices" }
   ]
 };
