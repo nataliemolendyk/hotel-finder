@@ -5,15 +5,15 @@ window.HotelConfig = {
   AIRPORTS: [
     {
       airportCode: "SFO",
-      search: "san francisco hotels"
+      search: "hotels in san francisco"
     },
     {
       airportCode: "OAK",
-      search: "oakland hotels"
+      search: "hotels in oakland"
     },
     {
       airportCode: "SJC",
-      search: "san jose hotels"
+      search: "hotels in san jose"
     }
   ]
 };
