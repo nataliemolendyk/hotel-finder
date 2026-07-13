@@ -1,124 +1,51 @@
-const CFG = window.HotelConfig;
+async function searchHotels() {
+  const query = document.getElementById("searchInput").value;
 
-async function fetchAirportHotels(airportCode, searchQuery) {
- const url = `https://hotel-finder-steel.vercel.app/api/hotels?q=${encodeURIComponent(searchQuery)}&check_in=${CFG.CHECK_IN}&check_out=${CFG.CHECK_OUT}`;
-
-
-  const res = await fetch(url);
+  const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
   const data = await res.json();
 
-  const properties = data.properties || [];
+  const container = document.getElementById("results");
+  container.innerHTML = "";
 
-  return properties.map(p => ({
-    id: p.id || `${airportCode}-${Math.random().toString(36).slice(2)}`,
-    name: p.name || "Unnamed Hotel",
-    airportCode,
-    address: p.address || p.nearby_places?.[0]?.name || "Address unavailable",
-
-    // ⭐ SAFE DEFAULTS
-    rating: p.overall_rating ?? 0,
-    price: p.rate_per_night?.extracted_lowest ?? 0,
-
-    currency: "USD",
-    image: p.images?.[0]?.original_image || p.thumbnail || "",
-    rooms: (p.prices || []).map(pr => ({
-      type: pr.source || pr.room_type || "Room",
-      price: pr.rate_per_night?.extracted_lowest ?? 0,
-      available: true,
-      description: pr.description || "",
-      features: p.amenities || []
-    }))
-  }));
-}
-
-async function loadHotels() {
-  document.getElementById("loading-indicator").style.display = "flex";
-
-  try {
-    const all = [];
-
-    for (const airport of CFG.AIRPORTS) {
-      const hotels = await fetchAirportHotels(airport.airportCode, airport.search);
-      all.push(...hotels);
-    }
-
-    window.State = { hotels: all };
-    const filtered = applyFilters(all);
-    renderHotels(filtered);
-  } catch (err) {
-    document.getElementById("error-message").style.display = "flex";
-  }
-
-  document.getElementById("loading-indicator").style.display = "none";
-}
-
-function applyFilters(hotels) {
-  const searchText = document.getElementById("search-input").value.toLowerCase();
-  const airport = document.getElementById("airport-filter").value;
-  const minPrice = Number(document.getElementById("price-min").value) || 0;
-  const maxPrice = Number(document.getElementById("price-max").value) || Infinity;
-  const minRating = Number(document.getElementById("rating-filter").value) || 0;
-  const favFilter = document.getElementById("fav-filter").value;
-  const sortBy = document.getElementById("sort-by").value;
-
-  let filtered = hotels.filter(h => {
-    if (airport !== "all" && h.airportCode !== airport) return false;
-    if (searchText && !h.name.toLowerCase().includes(searchText)) return false;
-    if (h.price < minPrice) return false;
-    if (h.price > maxPrice) return false;
-    if (h.rating < minRating) return false;
-    if (favFilter === "favorites" && !window.Favorites?.includes(h.id)) return false;
-    return true;
-  });
-
-  filtered.sort((a, b) => {
-    switch (sortBy) {
-      case "name": return a.name.localeCompare(b.name);
-      case "price-asc": return a.price - b.price;
-      case "price-desc": return b.price - a.price;
-      case "rating-desc": return b.rating - a.rating;
-      default: return 0;
-    }
-  });
-
-  return filtered;
-}
-
-function renderHotels(hotels) {
-  const results = document.getElementById("results");
-
-  if (!hotels.length) {
-    document.getElementById("empty-state").style.display = "flex";
+  if (!data.hotels || data.hotels.length === 0) {
+    container.innerHTML = "<p>No hotels found.</p>";
     return;
   }
 
-  document.getElementById("empty-state").style.display = "none";
+  data.hotels.forEach(hotel => {
+    const card = document.createElement("div");
+    card.className = "hotel-card";
 
-  results.innerHTML = hotels
-    .map(h => {
-      const price = h.price ? `$${h.price}` : "Price unavailable";
-      const rating = h.rating ? h.rating.toFixed(1) : "No rating";
+    const img = hotel.images?.[0]?.url || "";
+    const name = hotel.name || "Unknown Hotel";
+    const rating = hotel.rating || "N/A";
+    const price = hotel.price?.lowest_price || "N/A";
+    const address = hotel.address || "Address not available";
 
-      return `
-        <article class="hotel-card">
-          <img src="${h.image}" class="hotel-image" alt="${h.name}">
-          <h3>${h.name}</h3>
-          <p>${h.address}</p>
-          <p>Rating: ${rating}</p>
-          <p>${price}/night</p>
-        </article>
-      `;
-    })
-    .join("");
+    const roomTypes = hotel.room_types
+      ? hotel.room_types.map(r => `<li>${r.name}</li>`).join("")
+      : "<li>No room types listed</li>";
+
+    const amenities = hotel.amenities
+      ? hotel.amenities.map(a => `<li>${a}</li>`).join("")
+      : "<li>No amenities listed</li>";
+
+    card.innerHTML = `
+      <img src="${img}" class="hotel-img" />
+      <h2>${name}</h2>
+      <p><strong>Rating:</strong> ${rating}</p>
+      <p><strong>Price:</strong> ${price}</p>
+      <p><strong>Address:</strong> ${address}</p>
+
+      <h3>Room Types</h3>
+      <ul>${roomTypes}</ul>
+
+      <h3>Amenities</h3>
+      <ul>${amenities}</ul>
+    `;
+
+    container.appendChild(card);
+  });
 }
 
-document.addEventListener("DOMContentLoaded", loadHotels);
-
-// ⭐ LIVE FILTER UPDATES
-["search-input", "airport-filter", "price-min", "price-max", "rating-filter", "fav-filter", "sort-by"]
-  .forEach(id => {
-    document.getElementById(id).addEventListener("input", () => {
-      const filtered = applyFilters(window.State.hotels);
-      renderHotels(filtered);
-    });
-  });
+document.getElementById("searchBtn").addEventListener("click", searchHotels);
