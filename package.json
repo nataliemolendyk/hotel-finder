@@ -1,8 +1,5 @@
 {
   "name": "hotel-finder",
   "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "vercel-build": ""
-  }
+  "private": true
 }

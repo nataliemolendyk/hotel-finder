@@ -9,9 +9,7 @@
   --navy: #1a2540;
   --navy-dark: #101728;
   --accent: var(--navy);
-  --accent-dark: var(--navy-dark);
   --border: #e0e3e9;
-  --shadow: none;
 }
 
 * {
@@ -30,13 +28,6 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 32px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  padding: 24px;
 }
 
 /* ─── Site Header ──────────────────────────────────── */
@@ -137,17 +128,6 @@ body {
   background: var(--navy-dark);
 }
 
-/* ─── Result Count ───────────────────────────────────── */
-.result-count {
-  font-size: 0.85rem;
-  color: var(--text);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  padding: 4px 12px;
-  white-space: nowrap;
-  font-weight: 600;
-}
-
 /* ─── Loading Spinner ────────────────────────────────── */
 .loading-indicator {
   display: flex;
@@ -240,26 +220,6 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.hotel-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 12px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.hotel-airport-badge {
-  background: #ffffff;
-  color: var(--navy);
-  padding: 3px 10px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  border: 1px solid var(--border);
 }
 
 .hotel-card h3 {
@@ -381,23 +341,6 @@ body {
   gap: 6px;
 }
 
-/* ─── Room Summary (condensed, card view) ─────────────
-.room-summary {
-  margin-top: auto;
-}
-
-.rooms-count-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--navy);
-  background: #ffffff;
-  border: 1px solid var(--border);
-  padding: 5px 12px;
-}
-
 /* Shared room-row styling, used inside the detail modal's room list */
 .room-type {
   font-weight: 600;
@@ -408,29 +351,6 @@ body {
   font-weight: 700;
   color: var(--accent);
   white-space: nowrap;
-}
-
-.room-price small {
-  font-weight: 400;
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.room-badge {
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 2px 8px;
-  white-space: nowrap;
-}
-
-.badge-available {
-  background: #e6f4ea;
-  color: #256b3a;
-}
-
-.badge-unavailable {
-  background: #f5eaea;
-  color: #8a3232;
 }
 
 .room-features {
@@ -464,10 +384,6 @@ body {
 .favorites-toggle-btn:hover {
   border-color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
-}
-
-.fav-icon {
-  font-size: 1.05rem;
 }
 
 .fav-count {
@@ -518,14 +434,6 @@ body {
   border-color: var(--accent);
 }
 
-.filter-group-favs {
-  display: none;
-}
-
-.filter-group-favs.visible {
-  display: flex;
-}
-
 .filter-group-actions {
   display: flex;
   flex-direction: column;
@@ -548,19 +456,6 @@ body {
   color: var(--accent);
 }
 
-/* ─── Offline Banner ────────────────────────────────── */
-.offline-banner {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background: #fbf7ee;
-  border: 1px solid #e6dcc0;
-  color: #6b5a2e;
-  font-size: 0.85rem;
-  margin-bottom: 16px;
-}
-
 /* ─── Empty State ───────────────────────────────────── */
 .empty-state {
   display: flex;
@@ -577,22 +472,6 @@ body {
 .empty-icon {
   font-size: 3rem;
   opacity: 0.5;
-}
-
-.clear-filters-btn {
-  padding: 8px 20px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  font: inherit;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.clear-filters-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
 }
 
 /* ─── Detail Modal ──────────────────────────────────── */

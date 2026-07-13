@@ -39,7 +39,7 @@ function openDetails(hotel) {
       <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
 
       <div class="modal-body">
-        <img src="${hotel.images?.[0]?.url || hotel.images?.[0]?.thumbnail || hotel.image || hotel.thumbnail || ""}" class="modal-image" referrerpolicy="no-referrer" onerror="this.style.display='none'" />
+        <img src="${hotel.images?.[0]?.url || hotel.images?.[0]?.thumbnail || hotel.image || hotel.thumbnail || ""}" class="modal-image" onerror="this.style.display='none'" />
 
         <div class="modal-info">
           <h2>${hotel.name}</h2>
@@ -180,7 +180,7 @@ function renderHotels(hotels, container) {
       <div class="hotel-image-wrapper">
         ${
           img
-            ? `<img src="${img}" class="hotel-image" alt="${name}" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=\\'hotel-image-placeholder\\'><span class=\\'placeholder-icon\\'></span></div>'" />`
+            ? `<img src="${img}" class="hotel-image" alt="${name}" onerror="this.parentElement.innerHTML='<div class=\\'hotel-image-placeholder\\'><span class=\\'placeholder-icon\\'></span></div>'" />`
             : `<div class="hotel-image-placeholder"><span class="placeholder-icon"></span></div>`
         }
         <button class="fav-btn" aria-label="Toggle favorite">♡</button>
@@ -239,43 +239,33 @@ async function searchHotels() {
     </div>
   `;
 
+  // Try the real API via Vercel serverless function
   try {
     const res = await fetch(`/api/hotels?q=${encodeURIComponent(query)}`);
     const data = await res.json();
 
-    // Handle various API response shapes from SearchAPI and other providers
-    const hotels = data.results || data.hotels || data.properties || data.list || data.hotel_results || [];
+    // Handle various API response shapes
+    const hotels = data.hotel_results || data.results || data.hotels || data.properties || data.list || [];
 
-    if (!hotels || hotels.length === 0) {
-      const mockHotels = getMockHotels(query);
-      if (mockHotels.length > 0) {
-        renderWithFilters(mockHotels, container);
-        return;
-      }
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">−</div>
-          <p>No hotels found for "${query}".</p>
-        </div>
-      `;
+    if (hotels.length > 0) {
+      renderWithFilters(hotels, container);
       return;
     }
-
-    renderWithFilters(hotels, container);
-
   } catch (err) {
-    console.warn("API unavailable, using mock data:", err.message);
-    const mockHotels = getMockHotels(currentQuery);
-    if (mockHotels.length > 0) {
-      renderWithFilters(mockHotels, container);
-    } else {
-      container.innerHTML = `
-        <div class="error-message">
-          <p>Something went wrong.</p>
-          <button class="retry-btn" onclick="searchHotels()">Try Again</button>
-        </div>
-      `;
-    }
+    console.warn("API call failed:", err.message);
+  }
+
+  // Fallback to mock data
+  const mockHotels = getMockHotels(query);
+  if (mockHotels.length > 0) {
+    renderWithFilters(mockHotels, container);
+  } else {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">−</div>
+        <p>No hotels found for "${query}".</p>
+      </div>
+    `;
   }
 }
 
