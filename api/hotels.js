@@ -16,13 +16,18 @@ export default async function handler(req, res) {
       }
     });
 
-    const hotels = (data.properties || data.hotel_results || []).map(hotel => ({
-  ...hotel,
-  images: hotel.images?.map(img => ({
-    url: img.original || img.thumbnail || ""
-  })) || [],
-  image: hotel.images?.[0]?.original || hotel.images?.[0]?.thumbnail || ""
-}));
+    const hotels = (data.properties || data.hotel_results || []).map(hotel => {
+  const imagesArray = Array.isArray(hotel.images) ? hotel.images : [];
+
+  return {
+    ...hotel,
+    images: imagesArray.map(img => ({
+      url: img.original || img.thumbnail || ""
+    })),
+    image: imagesArray[0]?.original || imagesArray[0]?.thumbnail || ""
+  };
+});
+
 
 res.status(200).json({
   hotels
@@ -31,6 +36,4 @@ res.status(200).json({
     res.status(500).json({ error: err.message || "Failed to fetch hotels" });
   }
 }
-
-console.log("RAW HOTEL DATA:", JSON.stringify(data, null, 2));
 
