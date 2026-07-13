@@ -9,23 +9,27 @@ export default async function handler(req, res) {
 
   const params = new URLSearchParams({
     engine: "google_hotels",
-    type: "lodging",
     q: searchQuery,
     check_in_date: normalizeDate(check_in),
     check_out_date: normalizeDate(check_out),
-    api_key: process.env.SERPAPI_KEY,
-    adults: 2,
     currency: "USD",
-    gl: "us",
-    hl: "en"
+    api_key: process.env.SERPAPI_KEY
   });
 
   const url = `https://serpapi.com/hotels.json?${params.toString()}`;
 
   try {
     const response = await fetch(url);
-    const data = await response.json();
+
+    // If SerpAPI returns HTML, detect it
+    const text = await response.text();
+    if (text.startsWith("<")) {
+      throw new Error("SerpAPI returned HTML instead of JSON");
+    }
+
+    const data = JSON.parse(text);
     res.status(200).json(data);
+
   } catch (err) {
     console.log("🔥 BACKEND ERROR:", err.message);
     console.log("🔥 FULL ERROR:", err);
