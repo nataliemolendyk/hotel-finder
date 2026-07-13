@@ -718,6 +718,58 @@ body {
   }
 }
 
+/* ─── Favorites Popup ──────────────────────────────── */
+.fav-popup-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fav-popup-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  gap: 12px;
+}
+
+.fav-popup-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.fav-popup-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.fav-popup-meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.fav-popup-remove {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b91c1c;
+  flex-shrink: 0;
+  transition: border-color 0.15s;
+}
+
+.fav-popup-remove:hover {
+  border-color: #b91c1c;
+}
+
 @media (max-width: 480px) {
   .page-shell {
     padding: 12px;

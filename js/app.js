@@ -11,10 +11,6 @@ function showToast(msg) {
   setTimeout(() => toast.remove(), 3000);
 }
 
-function updateFavCount() {
-  document.getElementById("favCount").textContent = favorites.length;
-}
-
 function toggleFavorite(hotel) {
   const exists = favorites.find(f => f.name === hotel.name);
 
@@ -26,8 +22,56 @@ function toggleFavorite(hotel) {
     showToast("Added to favorites");
   }
 
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-  updateFavCount();
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+function openFavoritesPopup() {
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+
+    let listHtml = "";
+
+    if (favorites.length === 0) {
+      listHtml = `<p style="text-align:center;color:var(--muted);padding:24px 0;">No favorites yet. Click ♡ on a hotel to add it.</p>`;
+    } else {
+      favorites.forEach((hotel, idx) => {
+        const name = hotel.name || hotel.hotel_name || "Unknown Hotel";
+        const rating = hotel.rating || hotel.star_rating || "N/A";
+        const price = hotel.price?.lowest_price || hotel.price || hotel.rate_per_night?.lowest || "N/A";
+        listHtml += `
+          <div class="fav-popup-item">
+            <div class="fav-popup-info">
+              <div class="fav-popup-name">${name}</div>
+              <div class="fav-popup-meta">★ ${rating} &middot; ${price}</div>
+            </div>
+            <button class="fav-popup-remove" data-idx="${idx}">&times;</button>
+          </div>
+        `;
+      });
+    }
+
+    overlay.innerHTML = `
+      <div class="modal-content" style="max-width:500px;">
+        <button class="modal-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+        <div class="modal-info">
+          <h2>Favorites (${favorites.length})</h2>
+          <div class="fav-popup-list">${listHtml}</div>
+        </div>
+      </div>
+    `;
+
+    overlay.querySelectorAll(".fav-popup-remove").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.dataset.idx);
+        const removed = favorites.splice(idx, 1)[0];
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        showToast(`Removed &quot;${removed.name}&quot; from favorites`);
+        overlay.remove();
+        openFavoritesPopup();
+      });
+    });
+
+    document.body.appendChild(overlay);
 }
 
 function openDetails(hotel) {
@@ -167,9 +211,8 @@ function renderHotels(hotels, container) {
     const address = hotel.address || hotel.location || "Address not available";
 
     card.innerHTML = `
-      <div class="hotel-card-body">
-        <button class="fav-btn" aria-label="Toggle favorite">♡</button>
-        <h3>${name}</h3>
+          <div class="hotel-card-body">
+            <h3>${name}</h3>
 
         <div class="hotel-meta">
           <span class="meta-rating">★ ${rating}</span>
@@ -187,10 +230,9 @@ function renderHotels(hotels, container) {
       </div>
     `;
 
-    card.querySelector(".view-details-btn").onclick = () => openDetails(hotel);
-    card.querySelector(".fav-btn").onclick = () => toggleFavorite(hotel);
+        card.querySelector(".view-details-btn").onclick = () => openDetails(hotel);
 
-    list.appendChild(card);
+        list.appendChild(card);
   });
 
   container.appendChild(list);
@@ -614,7 +656,7 @@ document.getElementById("clearFiltersBtn").addEventListener("click", () => {
   applyCurrentFilters();
 });
 
-updateFavCount();
+document.getElementById("toggleFavs").addEventListener("click", openFavoritesPopup);
 
 // Auto-load all hotels on page load
 document.getElementById("searchInput").value = "";
