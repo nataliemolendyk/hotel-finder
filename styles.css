@@ -303,9 +303,70 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
   background: #f1f5f9;
   color: #94a3b8;
+}
+
+.placeholder-icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  position: relative;
+}
+
+.placeholder-icon::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 10px;
+  background: #cbd5e1;
+  border-radius: 3px 3px 0 0;
+}
+
+.placeholder-icon::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 14px;
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.hotel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.meta-rating {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.meta-price {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.detail-icon {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.modal-addr-icon {
+  font-weight: 700;
+  color: var(--muted);
 }
 
 .view-details-btn {
@@ -328,14 +389,6 @@ body {
   border-color: var(--navy-dark);
 }
 
-.hotel-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
 .hotel-details {
   display: grid;
   gap: 6px;
@@ -347,10 +400,6 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 6px;
-}
-
-.detail-icon {
-  flex-shrink: 0;
 }
 
 /* ─── Room Summary (condensed, card view) ─────────────
