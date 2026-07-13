@@ -17,8 +17,14 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    res.status(200).json(data);
+    const hotels = (data.properties || data.hotel_results || []).map(hotel => ({
+  ...hotel,
+  image: hotel.image || ""
+}));
 
+res.status(200).json({
+  hotels
+});
   } catch (err) {
     res.status(500).json({ error: err.message || "Failed to fetch hotels" });
   }

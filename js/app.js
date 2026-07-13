@@ -245,7 +245,7 @@ async function searchHotels() {
     const data = await res.json();
 
     // Handle various API response shapes
-    const hotels = data.hotel_results || data.results || data.hotels || data.properties || data.list || [];
+    const hotels = data.hotels || [];
 
     if (hotels.length > 0) {
       renderWithFilters(hotels, container);
