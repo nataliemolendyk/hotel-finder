@@ -16,9 +16,11 @@ export default async function handler(req, res) {
       }
     });
 
-    const data = await response.json();
     const hotels = (data.properties || data.hotel_results || []).map(hotel => ({
   ...hotel,
+  images: hotel.images?.map(img => ({
+    url: img.original || img.thumbnail || ""
+  })) || [],
   image: hotel.images?.[0]?.original || hotel.images?.[0]?.thumbnail || ""
 }));
 
