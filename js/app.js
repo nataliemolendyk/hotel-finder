@@ -38,9 +38,7 @@ function openDetails(hotel) {
     <div class="modal-content">
       <button class="modal-close" onclick="this.parentElement.parentElement.remove()">×</button>
 
-      <div class="modal-body">
-        <img src="${hotel.images?.[0]?.url || hotel.images?.[0]?.thumbnail || hotel.image || hotel.thumbnail || ""}" class="modal-image" onerror="this.style.display='none'" />
-
+            <div class="modal-body">
         <div class="modal-info">
           <h2>${hotel.name}</h2>
 
@@ -163,30 +161,14 @@ function renderHotels(hotels, container) {
     const card = document.createElement("div");
     card.className = "hotel-card";
 
-    // Pick the best available image: images[0].url > images[0].thumbnail > hotel.image > hotel.thumbnail
-    const img =
-      hotel.images?.[0]?.url ||
-      hotel.images?.[0]?.thumbnail ||
-      hotel.image ||
-      hotel.thumbnail ||
-      "";
-
-    const name = hotel.name || hotel.hotel_name || "Unknown Hotel";
+        const name = hotel.name || hotel.hotel_name || "Unknown Hotel";
     const rating = hotel.rating || hotel.star_rating || "N/A";
     const price = hotel.price?.lowest_price || hotel.price || hotel.rate_per_night?.lowest || "N/A";
     const address = hotel.address || hotel.location || "Address not available";
 
     card.innerHTML = `
-      <div class="hotel-image-wrapper">
-        ${
-          img
-            ? `<img src="${img}" class="hotel-image" alt="${name}" onerror="this.parentElement.innerHTML='<div class=\\'hotel-image-placeholder\\'><span class=\\'placeholder-icon\\'></span></div>'" />`
-            : `<div class="hotel-image-placeholder"><span class="placeholder-icon"></span></div>`
-        }
-        <button class="fav-btn" aria-label="Toggle favorite">♡</button>
-      </div>
-
       <div class="hotel-card-body">
+        <button class="fav-btn" aria-label="Toggle favorite">♡</button>
         <h3>${name}</h3>
 
         <div class="hotel-meta">
